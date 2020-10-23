@@ -49,9 +49,8 @@ public class UFClient{
      */
     public static void main(String args[]){
         int n = Integer.parseInt(args[0]);
-        System.out.println(count(n)+" connections generated");
         long startTime = System.currentTimeMillis();
-        count(n);
+        System.out.println(count(n)+" connections generated");
         long endTime = System.currentTimeMillis();
         System.out.println("Total execution time: " + (endTime-startTime) + "ms");
 
