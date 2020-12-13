@@ -39,8 +39,7 @@ public class Timer {
      * @return the average milliseconds per repetition.
      */
     public <T, U> double repeat(int n, Supplier<T> supplier, Function<T, U> function) {
-        repeat(n, supplier, function,null,null);
-        return stop();
+        return repeat(n, supplier, function, null, null);
     }
 
     /**
@@ -54,13 +53,22 @@ public class Timer {
      * @return the average milliseconds per repetition.
      */
     public <T, U> double repeat(int n, Supplier<T> supplier, Function<T, U> function, UnaryOperator<T> preFunction, Consumer<U> postFunction) {
-        logger.trace("repeat: with " + n + " runs");
-        pause();
-        for (int j = 0; j < n; j++) {
-            repeat(n, supplier, function,null,null);
+        for (int i = 0; i <n; i++){
+            T t = supplier.get();
+            if (preFunction !=null) {
+                pause();
+                t = preFunction.apply(supplier.get());
+                resume();
+            }
+            U u = function.apply(t);
             lap();
+            if(postFunction != null) {
+                pause();
+                postFunction.accept(u);
+                resume();
+            }
         }
-        toMillisecs(ticks);
+        pause();
         return meanLapTime();
 
         // TO BE IMPLEMENTED: note that the timer is running when this method is called and should still be running when it returns.
@@ -181,7 +189,8 @@ public class Timer {
      * @return the number of ticks for the system clock. Currently defined as nano time.
      */
     private static long getClock() {
-        return System.nanoTime();
+        long nanotime =  System.nanoTime();
+        return nanotime;
         // TO BE IMPLEMENTED
     }
 
@@ -193,8 +202,8 @@ public class Timer {
      * @return the corresponding number of milliseconds.
      */
     private static double toMillisecs(long ticks) {
-        ticks = System.currentTimeMillis();
-        return ticks;
+        double militime = ticks/1000000;
+        return militime;
         // TO BE IMPLEMENTED
     }
 

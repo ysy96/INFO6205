@@ -50,7 +50,7 @@ class ParSort {
         return CompletableFuture.supplyAsync(
                 () -> {
                     int[] result = new int[to - from];
-
+                    
                     // TO IMPLEMENT
                     System.arraycopy(array, from, result, 0, result.length);
                     sort(result, 0, to - from);

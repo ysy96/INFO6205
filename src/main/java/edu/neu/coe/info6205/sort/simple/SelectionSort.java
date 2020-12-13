@@ -34,7 +34,7 @@ public class SelectionSort<X extends Comparable<X>> extends SortWithHelper<X> {
     }
 
     public void sort(X[] xs, int from, int to) {
-        final Helper<X> helper = getHelper();
+        //final Helper<X> helper = getHelper();
         // TO BE IMPLEMENTED
      }
 

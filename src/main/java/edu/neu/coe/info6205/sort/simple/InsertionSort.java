@@ -52,7 +52,19 @@ public class InsertionSort<X extends Comparable<X>> extends SortWithHelper<X> {
      * @param to   the index of the first element not to sort
      */
     public void sort(X[] xs, int from, int to) {
+        long startTime = System.nanoTime();
         final Helper<X> helper = getHelper();
+        for (from = 0; from < to; from++) {
+            X tep = (X) xs[from];
+            int iLeft = from - 1;
+            while (iLeft >= 0 && ((Integer) xs[iLeft]) > (Integer) tep) {
+                helper.swap(xs, iLeft + 1, iLeft);
+                iLeft--;
+            }
+            xs[iLeft + 1] = tep;
+        }
+        long endTime = System.nanoTime();
+        System.out.println((endTime - startTime) + "ns");
 
         // TO BE IMPLEMENTED
     }
